@@ -69,38 +69,49 @@
 </head>
 
 <body>
-  <div class="app-container">
+  <div class="app-container" id="app">
     <div id="first-application">
       {{ firstVariable }}
     </div>
     <h1>My Goals</h1>
-    <input type="text" placeholder="Enter your goal" v-model="newGoal">
-    <button @click="addGoal">Add Goal</button>
-    <ul>
+    <input type="text" placeholder="Enter your goal" v-model="newGoal" ref="inputEl">
+    <button @click="addGoal" ref="buttonEl">Add Goal</button>
+    <ul ref="listEl">
       <li v-for="(goal, index) in goals" :key="index">{{ goal }}</li>
     </ul>
   </div>
 
   <script>
-    const { createApp } = Vue
+    const { createApp, ref, onMounted } = Vue;
 
     createApp({
-      data() {
-        return {
-          firstVariable: "Welcome to Vue",
-          newGoal: '',
-          goals: []
-        }
-      },
-      methods: {
-        addGoal() {
-          if (this.newGoal.trim()) {
-            this.goals.push(this.newGoal);
-            this.newGoal = '';
+      setup() {
+        const firstVariable = ref("Welcome to Vue");
+        const newGoal = ref('');
+        const goals = ref([]);
+        const inputEl = ref(null);
+        const buttonEl = ref(null);
+        const listEl = ref(null);
+
+        function addGoal() {
+          if (newGoal.value.trim()) {
+            goals.value.push(newGoal.value);
+            newGoal.value = '';
+
+            // Vanilla JS ilə list-ə yeni element əlavə edirik
+            const listItemEl = document.createElement('li');
+            listItemEl.textContent = newGoal.value;
+            listEl.value.appendChild(listItemEl);
           }
         }
+
+        onMounted(() => {
+          buttonEl.value.addEventListener('click', addGoal);
+        });
+
+        return { firstVariable, newGoal, goals, addGoal, inputEl, buttonEl, listEl };
       }
-    }).mount(".app-container");
+    }).mount("#app");
   </script>
 </body>
 
