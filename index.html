@@ -1,118 +1,24 @@
 <!DOCTYPE html>
 <html lang="az">
-
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Vue App</title>
+  <title>A first App</title>
+  <link rel="stylesheet" href="style.css">
   <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
-  <link rel="stylesheet" href="styles.css">
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      height: 100vh;
-      background-color: #f4f4f4;
-      margin: 0;
-    }
-
-    .app-container {
-      background: white;
-      padding: 20px;
-      border-radius: 10px;
-      box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-      text-align: center;
-      width: 300px;
-    }
-
-    #first-application {
-      font-size: 24px;
-      font-weight: bold;
-      color: #333;
-      margin-bottom: 10px;
-    }
-
-    input {
-      padding: 8px;
-      width: 80%;
-      margin: 10px 0;
-    }
-
-    button {
-      padding: 8px 15px;
-      background: #007BFF;
-      color: white;
-      border: none;
-      cursor: pointer;
-      border-radius: 5px;
-    }
-
-    button:hover {
-      background: #0056b3;
-    }
-
-    ul {
-      list-style-type: none;
-      padding: 0;
-    }
-
-    li {
-      background: #e0e0e0;
-      margin: 5px 0;
-      padding: 10px;
-      border-radius: 5px;
-    }
-  </style>
 </head>
-
 <body>
-  <div class="app-container" id="app">
-    <div id="first-application">
-      {{ firstVariable }}
+  <div id="app">
+    <div>
+      <label for="goal">Goal</label>
+      <input type="text" id="goal" v-model="newGoal">
+      <button @click="addGoal">Add Goal</button>
     </div>
-    <h1>My Goals</h1>
-    <input type="text" placeholder="Enter your goal" v-model="newGoal" ref="inputEl">
-    <button @click="addGoal" ref="buttonEl">Add Goal</button>
-    <ul ref="listEl">
+    <ul>
       <li v-for="(goal, index) in goals" :key="index">{{ goal }}</li>
     </ul>
   </div>
 
-  <script>
-    const { createApp, ref, onMounted } = Vue;
-
-    createApp({
-      setup() {
-        const firstVariable = ref("Welcome to Vue");
-        const newGoal = ref('');
-        const goals = ref([]);
-        const inputEl = ref(null);
-        const buttonEl = ref(null);
-        const listEl = ref(null);
-
-        function addGoal() {
-          if (newGoal.value.trim()) {
-            goals.value.push(newGoal.value);
-            newGoal.value = '';
-
-            // Vanilla JS ilə list-ə yeni element əlavə edirik
-            const listItemEl = document.createElement('li');
-            listItemEl.textContent = newGoal.value;
-            listEl.value.appendChild(listItemEl);
-          }
-        }
-
-        onMounted(() => {
-          buttonEl.value.addEventListener('click', addGoal);
-        });
-
-        return { firstVariable, newGoal, goals, addGoal, inputEl, buttonEl, listEl };
-      }
-    }).mount("#app");
-  </script>
+  <script src="app.js"></script>
 </body>
-
 </html>
