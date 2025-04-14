@@ -19,6 +19,7 @@
     <h2>Events in Action</h2>
     <button v-on:click="add(10)">Add 10</button>
     <button v-on:click="reduce(5)">Remove 5</button>
+    <p>Starting Counter: {{ counter }}</p>
     <p>Result: {{ counter }}</p>
     <input type="text" v-on:input="setName($event,'Jabbarov')"v-on:keyup="confirInput">
     <p>your Name: {{ confirmedName }}</p>
