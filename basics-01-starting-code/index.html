@@ -20,9 +20,13 @@
     <button v-on:click="add(10)">Add 10</button>
     <button v-on:click="reduce(5)">Remove 5</button>
     <p>Result: {{ counter }}</p>
-    <input type="text" v-on:input="setName($event,'Jabbarov')">
-    <p>your Name: {{ name }}</p>
-  </section>
+    <input type="text" v-on:input="setName($event,'Jabbarov')"v-on:keyup="confirInput">
+    <p>your Name: {{ confirmedName }}</p>
+    <form v-on:submit.prevent="submitForm">
+      <input type text="text">
+      <button>Sign Up</button>
+    </form>
+  </section>I
 </body>
 
 </html>
