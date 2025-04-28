@@ -5,8 +5,18 @@ const app = Vue.createApp({
       name: ''
     };
   },
+  computed: {
+    fullname() {
+      console.log('Running again...');
+      if(this.name === ''){
+        return '';
+      }
+      return this.name + '' + "Jabbarov";
+    }
+  },
   methods: {
     outputFullname(){
+      console.log('Running again...');
       if(this.name === ''){
         return '';
       }
@@ -29,4 +39,3 @@ const app = Vue.createApp({
 });
 
 app.mount('#events');
-// hd
