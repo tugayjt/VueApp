@@ -21,11 +21,33 @@ const app = Vue.createApp({
             return this.currentRound % 3 === 0 && this.currentRound !== 0;
         },
     },
+    watch: {
+        playerHealth(value) {
+            if (value <= 0 && this.monsterHealth <= 0) {
+                this.playerHealth = 0;
+                this.monsterHealth = 0;
+                alert("'It's a draw!");
+            } else if (value <= 0) {
+                this.playerHealth = 0;
+                alert('You lost!');
+            }
+        },
+        monsterHealth(value) {
+            if (value <= 0 && this.playerHealth <= 0) {
+                this.playerHealth = 0;
+                this.monsterHealth = 0;
+                alert("It's a draw!'");
+            } else if (value <= 0) {
+                this.monsterHealth = 0;
+                alert('You won!');
+            }
+        },
+    },
     methods: {
         attackMonster() {
             this.currentRound++;
-            const attacjkValue = getRandomValue(5, 12);
-            this.monsterHealth -= attacjkValue;
+            const attackValue = getRandomValue(5, 12);
+            this.monsterHealth -= attackValue;
             this.attackPlayer();
         },
         attackPlayer() {
@@ -46,9 +68,9 @@ const app = Vue.createApp({
             } else {
                 this.playerHealth += healValue;
             }
-            this.attackPlayer(); 
+            this.attackPlayer();
         },
-    }
+    },
 });
 
 app.mount('#game');
