@@ -17,7 +17,6 @@ const app = Vue.createApp({
 
 app.mount('#app');
 
-// Proxy nümunəsi əlavə olaraq aşağıda saxlanılıb
 const data = {
   message: 'Hello!',
   longMessage: 'Hello World!',
